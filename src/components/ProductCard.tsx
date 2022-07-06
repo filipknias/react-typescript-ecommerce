@@ -27,7 +27,7 @@ const ProductCard: FC<Props> = ({ product }) => {
       </Link>
       <button 
         type="button" 
-        className={`bg-green-500 hover:bg-green-600 rounded-sm py-2 font-bold transition-colors px-10 text-white text-center`}
+        className={`product-button bg-green-500 hover:bg-green-600`}
       >
         <FontAwesomeIcon icon={faShoppingBasket} className="mr-2" />
         Buy now

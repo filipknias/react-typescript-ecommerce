@@ -5,7 +5,7 @@
 }
 
 #root {
-  height: 100vh;
+  height: 100%;
 }
 
 /* PURE CSS LOADING STYLES */
@@ -45,5 +45,9 @@
 @layer base {
   .nav-item {
     @apply flex items-center gap-2 py-2 px-3 bg-white bg-opacity-40 text-white rounded-sm hover:bg-opacity-30 transition-colors;
+  }
+
+  .product-button {
+    @apply rounded-sm py-2 font-bold transition-colors px-10 text-white text-center;
   }
 }
