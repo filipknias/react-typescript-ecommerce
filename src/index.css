@@ -8,6 +8,14 @@
   height: 100vh;
 }
 
+/* TAILWIND SETUP */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* TAILWIND REUSABLE CLASSES */
+@layer base {
+  .nav-item {
+    @apply flex items-center gap-2 py-2 px-3 bg-white bg-opacity-40 text-white rounded-sm hover:bg-opacity-30 transition-colors;
+  }
+}
