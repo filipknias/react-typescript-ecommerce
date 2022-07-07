@@ -2,8 +2,11 @@ import { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faShoppingBasket, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../redux/hooks';
 
 const Navbar: FC = () => {
+  const { cart } = useAppSelector((state) => state.cart);
+
   return (
     <div className="w-full bg-gray-700 text-white	py-5">
       <div className="container mx-auto px-5">
@@ -27,7 +30,7 @@ const Navbar: FC = () => {
               <div className="nav-item">
                 <FontAwesomeIcon icon={faShoppingBasket} />
                 <span className="hidden md:block">Basket</span>
-                <div className="bg-red-500 p-1 h-6 w-6 text-xs text-center font-medium rounded-sm">0</div>
+                {cart && <div className="bg-red-500 p-1 h-6 w-6 text-xs text-center font-medium rounded-sm">{cart.line_items.length}</div>}
               </div>
             </Link>
           </div>
