@@ -1,14 +1,29 @@
 import { FC } from 'react';
 import { Product } from '@chec/commerce.js/types/product';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { addProductToCart, getProductFromCart } from '../redux/features/cartSlice';
+import { getNamedRequest } from '../redux/features/requestsSlice';
 
 interface Props {
   product: Product;
 }
 
 const ProductCard: FC<Props> = ({ product }) => {
+  const dispatch = useAppDispatch();
+  const addProductInProgress = useAppSelector((state) => getNamedRequest(state.requests, `products/addProductToCart/${product.id}`));
+  const productInCart = useAppSelector((state) => getProductFromCart(state.cart, product.id));
+  const buttonColor = productInCart ? "bg-blue-500 hover:bg-blue-600" : "bg-green-500 hover:bg-green-600";
+  const navigate = useNavigate();
+
+  const handleAddProduct = (): void => {
+    if (addProductInProgress && addProductInProgress.inProgress) return;
+    if (productInCart) navigate('/basket');
+    else dispatch(addProductToCart({ productId: product.id, quantity: 1 }));
+  };
+
   return (
     <div
       key={product.id} 
@@ -27,10 +42,11 @@ const ProductCard: FC<Props> = ({ product }) => {
       </Link>
       <button 
         type="button" 
-        className={`product-button bg-green-500 hover:bg-green-600`}
+        className={`product-button ${buttonColor} ${addProductInProgress && addProductInProgress.inProgress ? "bg-opacity-50 pointer-events-none cursor-default" : ""}`}
+        onClick={handleAddProduct}
       >
-        <FontAwesomeIcon icon={faShoppingBasket} className="mr-2" />
-        Buy now
+        <FontAwesomeIcon icon={productInCart ? faCheck : faShoppingBasket} className="mr-2" />
+        {productInCart ? "Already in basket" : "Buy now"}
       </button>
     </div>
   )
