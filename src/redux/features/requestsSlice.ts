@@ -46,6 +46,9 @@ const requestSlices = createSlice({
   },
 });
 
-export const { requestStart, requestSuccess, requestFail, deleteRequest } = requestSlices.actions;
+export const getNamedRequest = (state: RequestsState, type: string) => {
+  return state.requests.find((request) => request.type === type);
+};
 
+export const { requestStart, requestSuccess, requestFail, deleteRequest } = requestSlices.actions;
 export default requestSlices.reducer;

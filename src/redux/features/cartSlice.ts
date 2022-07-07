@@ -114,6 +114,10 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { } = cartSlice.actions;
+export const getProductFromCart = (state: CartState, id: string) => {
+  if (state.cart === null) return;
+  return state.cart.line_items.find(({ product_id }) => product_id === id);
+};
 
+export const { } = cartSlice.actions;
 export default cartSlice.reducer;
