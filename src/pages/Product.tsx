@@ -2,8 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import commerce from '../lib/commerce';
 import { Product as ProductType } from '@chec/commerce.js/types/product';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import ProductButton from '../components/ProductButton';
 
 const stripHtml = (html: string): string => {
   const tmp = document.createElement("div");
@@ -52,13 +51,7 @@ const Product: FC = () => {
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button 
-                    type="button" 
-                    className={`product-button bg-green-500 hover:bg-green-600`}
-                  >
-                    <FontAwesomeIcon icon={faShoppingBasket} className="mr-2" />
-                    Buy now
-                  </button>
+                  <ProductButton productId={product.id} quantity={quantity} />
                   <input 
                     type="number"
                     className="bg-gray-200 bg-opacity-20 w-14 text-center text-lg border-2 border-gray-300 rounded-sm focus:border-blue-300 outline-none"
