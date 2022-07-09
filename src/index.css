@@ -70,4 +70,13 @@
   .checkout-link-button {
     @apply bg-green-500 hover:bg-green-600 transition-colors rounded-md text-white text-center font-medium flex items-center gap-2 px-4 py-2 text-sm lg:text-base;
   }
+  .text-input {
+    @apply border-2 border-gray-200 py-1 px-2 rounded-md outline-none focus:border-blue-300 shadow-sm;
+  }
+  .form-group {
+    @apply flex flex-col gap-3;
+  }
+  .select-input {
+    @apply bg-white shadow-sm border-2 border-gray-200 px-2 py-1 rounded-md outline-none cursor-pointer focus:border-blue-300;
+  }
 } 
