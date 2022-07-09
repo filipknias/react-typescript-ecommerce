@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { addProductToCart, getProductFromCart } from '../redux/features/cartSlice';
-import { getNamedRequest } from '../redux/features/requestsSlice';
+import { getRequestInProgress } from '../redux/features/requestsSlice';
 
 interface Props {
   productId: string;
@@ -13,7 +13,7 @@ interface Props {
 
 const ProductButton: FC<Props> = ({ productId, quantity }) => {
   const dispatch = useAppDispatch();
-  const addProductInProgress = useAppSelector((state) => getNamedRequest(state.requests, `products/addProductToCart/${productId}`));
+  const addProductInProgress = useAppSelector((state) => getRequestInProgress(state.requests, 'products/addProductToCart', productId));
   const productInCart = useAppSelector((state) => getProductFromCart(state.cart, productId));
   const buttonColor = productInCart ? "bg-blue-500 hover:bg-blue-600" : "bg-green-500 hover:bg-green-600";
   const navigate = useNavigate();

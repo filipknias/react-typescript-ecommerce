@@ -7,6 +7,7 @@ import {
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Product from './pages/Product';
+import Basket from './pages/Basket';
 import { useAppDispatch } from './redux/hooks';
 import { fetchCart } from './redux/features/cartSlice';
 
@@ -23,6 +24,7 @@ const App: FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:productId" element={<Product />} />
+          <Route path="/basket" element={<Basket />} />
         </Routes>
       </div>
     </BrowserRouter>

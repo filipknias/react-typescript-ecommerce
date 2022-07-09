@@ -4,6 +4,7 @@ interface Request {
   type: string;
   inProgress: boolean;
   isError: boolean;
+  id?: string;
 }
 
 interface RequestsState {
@@ -16,6 +17,7 @@ const initialState: RequestsState = {
 
 interface RequestPayload {
   type: string;
+  id?: string;
 }
 
 const requestSlices = createSlice({
@@ -46,8 +48,16 @@ const requestSlices = createSlice({
   },
 });
 
-export const getNamedRequest = (state: RequestsState, type: string) => {
+export const getRequest = (state: RequestsState, type: string) => {
   return state.requests.find((request) => request.type === type);
+};
+
+export const getRequestById = (state: RequestsState, type: string, id: string) => {
+  return state.requests.find((request) => request.type === type && request.id === id);
+};
+
+export const getRequestInProgress = (state: RequestsState, type: string, id?: string) => {
+  return state.requests.find((request) => request.type === type && request.id === id && request.inProgress);
 };
 
 export const { requestStart, requestSuccess, requestFail, deleteRequest } = requestSlices.actions;

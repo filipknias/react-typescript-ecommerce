@@ -18,7 +18,7 @@ interface AddProductAction {
 
 interface RemoveProductAction {
   lineItemId: string;
-}
+};
 
 interface UpdateCartAction {
   lineItemId: string;
@@ -39,27 +39,27 @@ export const fetchCart = createAsyncThunk<Cart>('products/fetchCart', async (arg
 });
 
 export const addProductToCart = createAsyncThunk<Cart, AddProductAction>('products/addProductToCart', async ({ productId, quantity }, { dispatch, rejectWithValue }) => {
-  dispatch(requestStart({ type: `products/addProductToCart/${productId}` }));
+  dispatch(requestStart({ type: 'products/addProductToCart', id: productId }));
   try {
     const { cart } = await commerce.cart.add(productId, quantity);
-    dispatch(requestSuccess({ type: `products/addProductToCart/${productId}`}));
+    dispatch(requestSuccess({ type: 'products/addProductToCart', id: productId }));
     return cart;
   } catch (err) {
     console.log(err);
-    dispatch(requestFail({ type: `products/addProductToCart/${productId}`}));
+    dispatch(requestFail({ type: 'products/addProductToCart', id: productId }));
     return rejectWithValue(err);
   }
 });
 
 export const removeProductFromCart = createAsyncThunk<Cart, RemoveProductAction>('products/removeProductFromCart', async ({ lineItemId }, { rejectWithValue, dispatch }) => {
-  dispatch(requestStart({ type: `products/removeProductFromCart/${lineItemId}` }));
+  dispatch(requestStart({ type: 'products/removeProductFromCart', id: lineItemId }));
   try {
     const { cart } = await commerce.cart.remove(lineItemId);
-    dispatch(requestSuccess({ type: `products/removeProductFromCart/${lineItemId}` }));
+    dispatch(requestSuccess({ type: 'products/removeProductFromCart', id: lineItemId }));
     return cart;
   } catch (err) {
     console.log(err);
-    dispatch(requestFail({ type: `products/removeProductFromCart/${lineItemId}` }));
+    dispatch(requestFail({ type: 'products/removeProductFromCart', id: lineItemId }));
     return rejectWithValue(err);
   }
 });
