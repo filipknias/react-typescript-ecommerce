@@ -32,10 +32,10 @@ const CartTable: FC = () => {
   return (
     <table className="cart-table">
       <thead className="bg-gray-100 text-center text-sm lg:text-base">
-        <th className="cart-table-head-title">#</th>
-        <th className="cart-table-head-title">Product</th>
-        <th className="cart-table-head-title">Quantity</th>
-        <th className="cart-table-head-title">Price</th>
+        <td className="cart-table-head-title">#</td>
+        <td className="cart-table-head-title">Product</td>
+        <td className="cart-table-head-title">Quantity</td>
+        <td className="cart-table-head-title">Price</td>
       </thead>
       <tbody className="text-center text-md lg:text-lg">
         {cart && cart.line_items.map(({ id, product_id, image, name, price, quantity }, index) => (
