@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import AddressForm  from '../components/Checkout/AddressForm';
+import CartSummary  from '../components/Checkout/CartSummary';
 import commerce from '../lib/commerce';
 import { useAppSelector } from '../redux/hooks';
 import { CheckoutToken } from '@chec/commerce.js/types/checkout-token';
@@ -71,7 +72,7 @@ const Checkout: FC = () => {
             <div className="flex flex-col gap-12">
               <div>
                 <h1 className="font-medium text-2xl mb-2">Checkout summary</h1>
-                {/* <Summary /> */}
+                <CartSummary />
               </div>
               <div>
                 <h1 className="font-medium text-2xl mb-2">Payment method</h1>
