@@ -14,11 +14,18 @@ const Basket:FC = () => {
   const deleteProductInProgress = useAppSelector((state) => getRequestInProgress(state.requests, 'products/removeProductFromCart'));
   const dispatch = useAppDispatch();
   const [checkoutDisabled, setCheckoutDisabled] = useState<boolean>(false);
+  const [clearCartDisabled, setClearCartDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (clearCartInProgress || updateCartInProgress || deleteProductInProgress) setCheckoutDisabled(true);
     else setCheckoutDisabled(false);
   }, [clearCartInProgress, updateCartInProgress, deleteProductInProgress]);
+
+  useEffect(() => {
+    if (cart === null) return;
+    if (cart.line_items.length > 0) setClearCartDisabled(false);
+    else setClearCartDisabled(true);
+  }, [cart]);
 
   const handleClearCart = () => {
     if (clearCartInProgress) return;
@@ -29,7 +36,7 @@ const Basket:FC = () => {
     <>
       <div className="page-header-container">
         <h2 className="page-header-text">Basket</h2>
-        <button className={`page-header-button ${clearCartInProgress ? "bg-opacity-50 pointer-events-none cursor-default" : ""}`} onClick={handleClearCart}>
+        <button className={`page-header-button ${clearCartInProgress || clearCartDisabled ? "bg-opacity-50 pointer-events-none cursor-default" : ""}`} onClick={handleClearCart}>
           <FontAwesomeIcon icon={faSync} />
           Clear basket
         </button>
