@@ -1,9 +1,10 @@
 import { FC, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import AddressForm  from '../components/Checkout/AddressForm';
 import CartSummary  from '../components/Checkout/CartSummary';
+import PaymentForm  from '../components/Checkout/PaymentForm';
 import commerce from '../lib/commerce';
 import { useAppSelector } from '../redux/hooks';
 import { CheckoutToken } from '@chec/commerce.js/types/checkout-token';
@@ -22,6 +23,7 @@ export interface ShippingData {
 
 const Checkout: FC = () => {
   const { cart } = useAppSelector((state) => state.cart);
+  const navigate = useNavigate();
   const [shippingData, setShippingData] = useState<ShippingData>({
     firstName: '',
     lastName: '',
@@ -37,6 +39,7 @@ const Checkout: FC = () => {
   const [checkoutToken, setCheckoutToken] = useState<CheckoutToken|null>(null);
 
   useEffect(() => {
+    if (cart && cart.line_items.length === 0) return navigate('/');
     const fetchCheckoutToken = async () => {
       if (cart === null) return;
       setFetchingToken(true);
@@ -76,7 +79,7 @@ const Checkout: FC = () => {
               </div>
               <div>
                 <h1 className="font-medium text-2xl mb-2">Payment method</h1>
-                {/* <PaymentForm /> */}
+                {checkoutToken && <PaymentForm checkoutToken={checkoutToken} shippingData={shippingData} />}
               </div>
             </div>
           </form>

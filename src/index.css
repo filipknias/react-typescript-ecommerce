@@ -68,7 +68,7 @@
     @apply rounded-sm text-sm py-1 px-2 text-white transition-colors bg-red-500 hover:bg-red-600;
   }
   .checkout-link-button {
-    @apply bg-green-500 hover:bg-green-600 transition-colors rounded-md text-white text-center font-medium flex items-center gap-2 px-4 py-2 text-sm lg:text-base;
+    @apply bg-green-500 hover:bg-green-600 transition-colors rounded-md text-white text-center font-medium flex items-center justify-center gap-2 px-4 py-2 text-sm lg:text-base cursor-pointer;
   }
   .text-input {
     @apply border-2 border-gray-200 py-1 px-2 rounded-md outline-none focus:border-blue-300 shadow-sm;
