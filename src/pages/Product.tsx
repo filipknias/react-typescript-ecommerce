@@ -2,7 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import commerce from '../lib/commerce';
 import { Product as ProductType } from '@chec/commerce.js/types/product';
-import ProductButton from '../components/ProductButton';
+import ProductButton from '../components/Product/ProductButton';
 
 const stripHtml = (html: string): string => {
   const tmp = document.createElement("div");

@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import commerce from '../lib/commerce';
 import { Product } from '@chec/commerce.js/types/product';
-import ProductCard from '../components/ProductCard';
+import ProductCard from '../components/Product/ProductCard';
 
 const Home: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

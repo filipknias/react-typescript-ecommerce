@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingBasket, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { addProductToCart, getProductFromCart } from '../redux/features/cartSlice';
-import { getRequestInProgress } from '../redux/features/requestsSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addProductToCart, getProductFromCart } from '../../redux/features/cartSlice';
+import { getRequestInProgress } from '../../redux/features/requestsSlice';
 
 interface Props {
   productId: string;
