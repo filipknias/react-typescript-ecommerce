@@ -75,7 +75,7 @@ const Checkout: FC = () => {
             <div className="flex flex-col gap-12">
               <div>
                 <h1 className="font-medium text-2xl mb-2">Checkout summary</h1>
-                <CartSummary />
+                {cart && <CartSummary items={cart.line_items} totalPrice={cart.subtotal.formatted_with_symbol} />}
               </div>
               <div>
                 <h1 className="font-medium text-2xl mb-2">Payment method</h1>

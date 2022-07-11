@@ -1,13 +1,16 @@
 import { FC, useState } from 'react';
 import { CheckoutToken } from '@chec/commerce.js/types/checkout-token';
 import { CheckoutCapture } from '@chec/commerce.js/types/checkout-capture';
+import { CheckoutCaptureResponse } from '@chec/commerce.js/types/checkout-capture-response';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
-import { loadStripe, StripeElements, Stripe, StripeError } from '@stripe/stripe-js';
+import { loadStripe, StripeElements, Stripe } from '@stripe/stripe-js';
 import { ShippingData } from '../../pages/Checkout';
 import { useAppDispatch } from '../../redux/hooks';
 import { clearCart } from '../../redux/features/cartSlice';
 import commerce from '../../lib/commerce';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   checkoutToken: CheckoutToken;
@@ -18,13 +21,14 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY || "");
 
 const PaymentForm: FC<Props> = ({ checkoutToken, shippingData }) => {                                          
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [paymentDisabled, setPaymentDisabled] = useState<boolean>(false);
   const [paymentError, setPaymentError] = useState<string|null>(null);
+  const [order, setOrder] = useState<CheckoutCaptureResponse|null>(null);
 
   const handleSubmit = async (elements: StripeElements|null, stripe: Stripe|null) => {
     if (elements === null || stripe === null) return;
     setPaymentError(null);
+    setOrder(null);
 
     // Create stripe payment method
     setPaymentDisabled(true);
@@ -70,9 +74,10 @@ const PaymentForm: FC<Props> = ({ checkoutToken, shippingData }) => {
 
   const handleCaptureCheckout = async (orderData: CheckoutCapture) => {
     try {
-      const order = await commerce.checkout.capture(checkoutToken.id, orderData);
+      const incomingOrder = await commerce.checkout.capture(checkoutToken.id, orderData);
       dispatch(clearCart());
-      navigate(`/order/${order.id}`);
+      setOrder(incomingOrder);
+      setPaymentDisabled(true);
     } catch (err: any) {
       console.log(err);
       setPaymentError(err.data.error.message);
@@ -93,7 +98,19 @@ const PaymentForm: FC<Props> = ({ checkoutToken, shippingData }) => {
             Pay & Confirm ({checkoutToken.live.subtotal.formatted_with_symbol})
           </div>
           {paymentError && (
-            <div className="mt-8 bg-red-200 text-red-700 py-3 px-5 rounded-md">{paymentError}</div>
+            <div className="mt-8 bg-red-200 text-red-700 py-3 px-5 rounded-md">
+              <FontAwesomeIcon icon={faTriangleExclamation} className="mr-2" />
+              {paymentError}
+            </div>
+          )}
+          {order && (
+            <div className="mt-8 bg-green-200 text-green-700 py-3 px-5 rounded-md">
+              <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
+              Your order ({order.id}) has been placed. Confirmation e-mail has been sent to {shippingData.email}
+              <Link to="/">
+                <p className="font-bold mt-2 hover:underline">Go back to products page</p>
+              </Link>
+            </div>
           )}
         </>
       )}
