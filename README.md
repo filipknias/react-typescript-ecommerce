@@ -26,4 +26,4 @@ Then install all dependencies and run app\
 
 # Live Preview
 
-You can try this game here: https://ecommerce-online-shop-018767.netlify.app
+You can visit website here: https://ecommerce-online-shop-018767.netlify.app
