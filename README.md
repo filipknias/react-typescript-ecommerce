@@ -1,22 +1,29 @@
-# E-commerce online shop
+# E-commerce Online Shop
+Online e-commerce shop which allow users to buy different products. Application uses CommerceJS API to store all products data. User can pay for the products with credit card provided by Stripe payments.
 
-### Features
-- Browse products
-- Add products to basket
-- Update basket
-- Pay with card
+# Screenshots preview 
+![index screenshot](screenshots/index_screenshot.png)
+<br />
+![product screenshot](screenshots/product_screenshot.png)
+<br />
+![basket screenshot](screenshots/basket_screenshot.png)
+<br />
+![checkout screenshot](screenshots/checkout_screenshot.png)  
 
-### Tech stack
-- HTML 5
-- CSS 3
-- Tailwind CSS
-- Typescript
-- React
-- Redux
-- Redux toolkit
+# Tech Stack
++ React
++ Typescript
++ TailwindCSS
++ Redux Toolkit
++ CommerceJS API
 
-### API
-- https://commercejs.com
+# Installation
+To install app localy on your computer you need to clone project from github\
+`git clone https://github.com/filipknias/react-typescript-ecommerce.git`
 
-### Live preview
-- https://selling-ecommerce-app.herokuapp.com/
+Then install all dependencies and run app\
+`npm install && npm start`
+
+# Live Preview
+
+You can try this game here: https://ecommerce-online-shop-018767.netlify.app
